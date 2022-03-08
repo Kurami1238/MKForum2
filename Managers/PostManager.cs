@@ -193,7 +193,7 @@ namespace MKForum.Managers
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand command = new SqlCommand(commandText))
+                    using (SqlCommand command = new SqlCommand(commandText,conn))
                     {
                         command.Parameters.AddWithValue("@postID", postid);
                         conn.Open();
