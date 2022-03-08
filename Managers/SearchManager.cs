@@ -6,13 +6,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
+
 namespace MKForum.Managers
 {
     public class SearchManager
     {
-        //建立一個搜尋清單
-        public static List<SearchResult> srchList = new List<SearchResult>();
-        public static List<SearchResult> getAllSrchList(string srchText, int cboardid)
+
+        /// <summary>
+        /// 建立一個搜尋清單
+        /// </summary>
+        public List<SearchResult> getAllSrchList(string srchText, int cboardid)
         {
 
             //找 文章標題 或 文章內容 或 作者名稱 或 子板塊名稱 (SQL已測試OK)
@@ -38,17 +41,20 @@ namespace MKForum.Managers
                         conn.Open();
                         SqlDataReader reader = command.ExecuteReader();
 
+                        List<SearchResult> srchList = new List<SearchResult>();
+
                         //把取得的資料放進陣列(不知道為什麼讀不到)
                         while (reader.Read())
                         {
                             SearchResult MatchData = new SearchResult()
                             {
                                 PostID = (Guid)reader["PostID"],
-                                NickName = reader["NickName"]as string,
+                                NickName = reader["NickName"] as string,
                                 Title = reader["Title"] as string,
                                 PostCotent = reader["PostCotent"] as string,
                                 Cname = reader["Title"] as string,
                                 CboardID = (Guid)reader["CboardID"],
+                                PostDate = (DateTime)reader["PostDate"],
                             };
                             srchList.Add(MatchData);
 
@@ -59,13 +65,17 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("HeaderArea.getSrchPostList", ex);
+                Logger.WriteLog("SearchManager.getAllSrchList", ex);
                 throw;
             }
         }
-
-        //取得當前子版搜尋的List
-        public static List<SearchResult> getCboardSrchList(string srchText, int cboardid)
+        /// <summary>
+        /// 取得當前子版搜尋的List
+        /// </summary>
+        /// <param name="srchText"></param>
+        /// <param name="cboardid"></param>
+        /// <returns></returns>
+        public List<SearchResult> getCboardSrchList(string srchText, int cboardid)
         {
             //從Session取得當前子板塊ID
             //int cboardid = this.Session["CboradID"] as int;
@@ -94,6 +104,8 @@ namespace MKForum.Managers
                         conn.Open();
                         SqlDataReader reader = command.ExecuteReader();
 
+                        List<SearchResult> srchList = new List<SearchResult>();
+
                         //把取得的資料放進陣列
                         while (reader.Read())
                         {
@@ -105,6 +117,7 @@ namespace MKForum.Managers
                                 PostCotent = reader["PostCotent"] as string,
                                 Cname = reader["Title"] as string,
                                 CboardID = (Guid)reader["CboardID"],
+                                PostDate = (DateTime)reader["PostDate"],
                             };
                             srchList.Add(MatchData);
                         }
@@ -114,12 +127,17 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("HeaderArea.getSrchPostList", ex);
+                Logger.WriteLog("SearchManager.getCboardSrchList", ex);
                 throw;
             }
         }
-        //取得作者搜尋的List
-        public static List<SearchResult> getWriterSrchList(string srchText, int cboardid)
+        /// <summary>
+        /// 取得作者搜尋的List
+        /// </summary>
+        /// <param name="srchText"></param>
+        /// <param name="cboardid"></param>
+        /// <returns></returns>
+        public List<SearchResult> getWriterSrchList(string srchText, int cboardid)
         {
 
             string connStr = "Server=localhost;Database=MKForum;Integrated Security=True;";            //連線字串
@@ -144,6 +162,8 @@ namespace MKForum.Managers
                         conn.Open();
                         SqlDataReader reader = command.ExecuteReader();
 
+                        List<SearchResult> srchList = new List<SearchResult>();
+
                         //把取得的資料放進陣列
                         while (reader.Read())
                         {
@@ -155,6 +175,7 @@ namespace MKForum.Managers
                                 PostCotent = reader["PostCotent"] as string,
                                 Cname = reader["Title"] as string,
                                 CboardID = (Guid)reader["CboardID"],
+                                PostDate = (DateTime)reader["PostDate"],
                             };
                             srchList.Add(MatchData);
                         }
@@ -164,7 +185,7 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("HeaderArea.getSrchPostList", ex);
+                Logger.WriteLog("SearchManager.getWriterSrchList", ex);
                 throw;
             }
         }
