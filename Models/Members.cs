@@ -15,6 +15,7 @@ namespace MKForum.Models
         public string NickName { get; set; }
         public DateTime Birthday { get; set; }
         public int Sex { get; set; }
+        public string PicPath { get; set; }
 
 
     }

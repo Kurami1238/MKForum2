@@ -40,6 +40,7 @@ namespace MKForum.Managers
                                 NickName = reader["NickName"] as string,
                                 Birthday = (DateTime)reader["Birthday"],
                                 Sex = (int)reader["Sex"],
+                                PicPath = reader["PicPath"] as string
                             };
                             Members.Add(member);
                         }
@@ -84,6 +85,7 @@ namespace MKForum.Managers
                             NickName = reader["NickName"] as string,
                             Birthday = (DateTime)reader["Birthday"],
                             Sex = (int)reader["Sex"],
+                            PicPath = reader["PicPath"] as string
                         };
                         return member;
                     }

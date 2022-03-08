@@ -12,6 +12,10 @@
         <asp:GridView ID="GVMemberFollows" runat="server">
 
         </asp:GridView>
+
+        <asp:Repeater ID="rptMemberFollows" runat="server">
+
+        </asp:Repeater>
     </form>
 </body>
 </html>
