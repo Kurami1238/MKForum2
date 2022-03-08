@@ -68,6 +68,7 @@
     <Content Include="BackAdmin\MemberCreate.aspx" />
     <Content Include="BackAdmin\MemberEditor.aspx" />
     <Content Include="BackAdmin\MemberFollowEditor.aspx" />
+    <Content Include="BlackMember.aspx" />
     <Content Include="CreatePost.aspx" />
     <Content Include="EditPost.aspx" />
     <Content Include="Global.asax" />
@@ -101,6 +102,13 @@
     <Compile Include="BackAdmin\MemberFollowEditor.aspx.designer.cs">
       <DependentUpon>MemberFollowEditor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BlackMember.aspx.cs">
+      <DependentUpon>BlackMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BlackMember.aspx.designer.cs">
+      <DependentUpon>BlackMember.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CreatePost.aspx.cs">
       <DependentUpon>CreatePost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -120,9 +128,11 @@
     </Compile>
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Managers\BlackManager.cs" />
     <Compile Include="Managers\CboardManager.cs" />
     <Compile Include="Managers\MemberFollowManager.cs" />
     <Compile Include="Managers\MemberManager.cs" />
+    <Compile Include="Managers\ModeratorManager.cs" />
     <Compile Include="Managers\PostManager.cs" />
     <Compile Include="Managers\RankingManager.cs" />
     <Compile Include="Managers\SearchManager.cs" />
