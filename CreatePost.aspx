@@ -12,7 +12,7 @@
         <div>
             標題：<asp:TextBox runat="server" ID="Title"></asp:TextBox><br />
             內文：<textarea runat="server" id="PostCotent" cols="20" rows="2"></textarea><br />
-            <asp:Button ID="btnSend" runat="server" Text="送出" OnClick="btnSend_Click()"    />
+            <asp:Button ID="btnSend" runat="server" Text="送出" OnClick="btnSend_Click"    />
             <asp:Literal runat="server" ID="ltlmsg"></asp:Literal>
         </div>
     </form>
