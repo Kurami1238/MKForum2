@@ -10,8 +10,9 @@ namespace MKForum.Managers
 {
     public class SearchManager
     {
-
-        public static List<SearchResult> getAllSrchList(string srchText, int cboardid, List<SearchResult> srchList)
+        //建立一個搜尋清單
+        public static List<SearchResult> srchList = new List<SearchResult>();
+        public static List<SearchResult> getAllSrchList(string srchText, int cboardid)
         {
 
             //找 文章標題 或 文章內容 或 作者名稱 或 子板塊名稱 (SQL已測試OK)
@@ -64,7 +65,7 @@ namespace MKForum.Managers
         }
 
         //取得當前子版搜尋的List
-        public static List<SearchResult> getCboardSrchList(string srchText, int cboardid, List<SearchResult> srchList)
+        public static List<SearchResult> getCboardSrchList(string srchText, int cboardid)
         {
             //從Session取得當前子板塊ID
             //int cboardid = this.Session["CboradID"] as int;
@@ -118,7 +119,7 @@ namespace MKForum.Managers
             }
         }
         //取得作者搜尋的List
-        public static List<SearchResult> getWriterSrchList(string srchText, int cboardid, List<SearchResult> srchList)
+        public static List<SearchResult> getWriterSrchList(string srchText, int cboardid)
         {
 
             string connStr = "Server=localhost;Database=MKForum;Integrated Security=True;";            //連線字串
