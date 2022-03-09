@@ -20,7 +20,6 @@ namespace MKForum.BackAdmin
                 this.lblMemberFollow_FollowStatus.Text = "追蹤中";
             else
                 this.lblMemberFollow_FollowStatus.Text = "未追蹤";
-
         }
 
         protected void btnMemberFollow_FollowStatus_Click(object sender, EventArgs e)

@@ -8,7 +8,10 @@ namespace MKForum.Helpers
 {
     public class Logger
     {
-        private const string _savePath = "\\log\\log.log";
+        //private static string _savePath = Path.GetFullPath(@"\Logs\Log.log");
+        private const string _savePath = "D:\\CSharpTeamTopic\\Logs\\Log.log";
+
+
         //記錄錯誤
         public static void WriteLog(string moduleName, Exception ex)
         {
