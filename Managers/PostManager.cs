@@ -33,6 +33,7 @@ namespace MKForum.Managers
                         command.Parameters.AddWithValue(@"cboardID", cboard);
                         command.Parameters.AddWithValue(@"title", title);
                         command.Parameters.AddWithValue(@"postCotent", postcotent);
+                        command.Parameters.AddWithValue(@"postView", 0);
                     }
                 }
             }
@@ -42,16 +43,22 @@ namespace MKForum.Managers
                 throw;
             }
         }
-        public static void CreatePost(Guid member, Guid postid, int cboard, string title, string postcotent)
+        public static void CreatePost(Guid member, Guid postid, int cboard, string postcotent)
         {
-
+            Post pointpost = GetPost(postid);   // 取發文的標題
+            List<Post> pointpostlist = GetPostpointNowFloor(postid); // 搜那篇回文數有多少
+            int floor;
+            if (pointpostlist.Count > 0)
+                floor = pointpostlist.Count + 1;
+            else
+                floor = 1;
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
                 @"
                     INSERT INTO Posts
-                    (MemberID, PointID, CboardID, PostView, Title, PostCotent)
+                    (MemberID, PointID, CboardID, PostView, Title, PostCotent, Floor)
                     VALUES
-                    (@memberID, @pointID, @cboardID, @postView, @title, @postCotent)
+                    (@memberID, @pointID, @cboardID, @postView, @title, @postCotent, @floor)
                     ";
             try
             {
@@ -64,17 +71,59 @@ namespace MKForum.Managers
                         command.Parameters.AddWithValue(@"pointID", postid);
                         command.Parameters.AddWithValue(@"cboardID", cboard);
                         command.Parameters.AddWithValue(@"postView", 0);
-                        command.Parameters.AddWithValue(@"title", title);
+                        command.Parameters.AddWithValue(@"title", pointpost.Title);
                         command.Parameters.AddWithValue(@"postCotent", postcotent);
+                        command.Parameters.AddWithValue(@"floor", floor);
                     }
                 }
-                CreateInMemberFollows(member, postid);
-                List<MemberFollow> followlist = GetMemberFollowsMemberID(postid);
-                RepliedtoNO(followlist,postid);
+                CreateInMemberFollows(member, postid);  // 增加至會員的追蹤表
+                List<MemberFollow> followlist = GetMemberFollowsMemberID(postid); 
+                RepliedtoNO(followlist,postid); // 讓追蹤原文的會員狀態都改為未讀
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,CreatePost", ex);
+                Logger.WriteLog("PostManager.CreatePost", ex);
+                throw;
+            }
+        }
+        public static List<Post> GetPostpointNowFloor(Guid pointid)
+        {
+            string connectionStr = ConfigHelper.GetConnectionString();
+            string commandText =
+                @"
+                    SELECT * FROM Posts
+                    WHERE PointID = @pointID;
+                ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStr))
+                {
+                    using (SqlCommand command = new SqlCommand(commandText, connection))
+                    {
+                        List<Post> pointList = new List<Post>();
+                        connection.Open();
+                        command.Parameters.AddWithValue("@pointID", pointid);
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Post po = new Post()
+                            {
+                                MemberID = (Guid)reader["MemberID"],
+                                PostID = (Guid)reader["PostID"],
+                                PostDate = (DateTime)reader["ReadedDate"],
+                            };
+                            pointList.Add(po);
+                        }
+
+                        return pointList;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("PostManager.GetPostNowFloor", ex);
                 throw;
             }
         }
@@ -105,7 +154,7 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,RepliedtoNO", ex);
+                Logger.WriteLog("PostManager.RepliedtoNO", ex);
                 throw;
             }
         }
@@ -134,7 +183,7 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,CreateInMemberFollows", ex);
+                Logger.WriteLog("PostManager.CreateInMemberFollows", ex);
                 throw;
             }
         }
@@ -177,7 +226,7 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("MemberFollowManager.GetMemberFollows", ex);
+                Logger.WriteLog("PostManager.GetMemberFollowsMemberID", ex);
                 throw;
             }
         }
@@ -251,7 +300,7 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,UpdatePost", ex);
+                Logger.WriteLog("PostManager.UpdatePost", ex);
                 throw;
             }
         }
@@ -276,7 +325,7 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,DeletePost", ex);
+                Logger.WriteLog("PostManager.DeletePost", ex);
                 throw;
             }
         }
