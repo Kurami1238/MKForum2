@@ -18,7 +18,7 @@ namespace MKForum.Managers
             string commandText =
                 @"
                     INSERT INTO Posts
-                    (MemberID, CboardID, PostView, Title, PostCotent)
+                    (MemberID, CboardID, Title, PostCotent)
                     VALUES
                     (@memberID, @cboardID, @postView, @title, @postCotent)
                     ";
@@ -31,7 +31,6 @@ namespace MKForum.Managers
                         connection.Open();
                         command.Parameters.AddWithValue(@"memberID", member);
                         command.Parameters.AddWithValue(@"cboardID", cboard);
-                        command.Parameters.AddWithValue(@"postView", 0);
                         command.Parameters.AddWithValue(@"title", title);
                         command.Parameters.AddWithValue(@"postCotent", postcotent);
                     }
