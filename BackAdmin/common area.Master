@@ -1,0 +1,70 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="common area.master.cs" Inherits="MKForum.BackAdmin.common_area" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <script src="js/bootstrap.js"></script>
+    <style>
+        div {
+            border: 1px solid #000;
+        }
+
+        .col-md-0 {
+            flex: 0 0 auto;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- navbar-dark 文字顏色 .bg-dark 背景顏色 -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+            <!-- .navbar-brand 左上LOGO位置 -->
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+
+                <!-- 搜尋列 -->
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        Search
+                    </button>
+                </form>
+            </a>
+            <div class="justify-content-center">
+                <span class="h3 mx-1 " style="color: aliceblue;">MKForun</span>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <ul>
+                    <li>音樂討論區</li>
+                    <li>動畫討論區</li>
+                    <li>漫畫討論區</li>
+                    <li>遊戲討論區</li>
+                </ul>
+            </div>
+            <!--主畫面區-->
+            <div class="col-lg-6 col-md-12">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <ul>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

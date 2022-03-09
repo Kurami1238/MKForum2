@@ -81,6 +81,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackAdmin\common area.Master.cs">
+      <DependentUpon>common area.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\common area.Master.designer.cs">
+      <DependentUpon>common area.Master</DependentUpon>
+    </Compile>
     <Compile Include="BackAdmin\MemberCreate.aspx.cs">
       <DependentUpon>MemberCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -195,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logs\Log.log" />
+    <Content Include="BackAdmin\common area.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
