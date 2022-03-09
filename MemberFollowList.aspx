@@ -9,12 +9,18 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:GridView ID="GVMemberFollows" runat="server">
 
-        </asp:GridView>
 
         <asp:Repeater ID="rptMemberFollows" runat="server">
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server"> 
+                    <%# Eval("PointID").ToString() == null 
+                            ? string.Format("新文章:{0}",Eval("Title")) 
+                            : string.Format("{0}新回復:「{1}」","第5樓" ,Eval("PostCotent")) 
+                    %> 
 
+                </asp:Label>
+            </ItemTemplate>
         </asp:Repeater>
     </form>
 </body>

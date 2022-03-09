@@ -10,47 +10,55 @@ namespace MKForum.Managers
 {
     public class MemberFollowManager
     {
-        public List<MemberFollow> GetMemberFollows(string MemberID)
+        public List<Post> GetReplied_POSTMemberFollows(string MemberID) //, string DateTime
         {
             string connectionStr = ConfigHelper.GetConnectionString();
             string commandText =
                 @"
-                    SELECT * FROM MemberFollows
-                    WHERE MemberID = @MemberID;
+                    SELECT * FROM Posts
+                    WHERE PostID = 
+                    (
+	                    SELECT PostID FROM MemberFollows
+	                    WHERE MemberID = @MemberID
+	                    AND Replied = 0
+                    )
                 ";
-
             try
             {
-                using(SqlConnection connection = new SqlConnection(connectionStr))
+                using (SqlConnection connection = new SqlConnection(connectionStr))
                 {
-                    using(SqlCommand command = new SqlCommand(commandText, connection))
+                    using (SqlCommand command = new SqlCommand(commandText, connection))
                     {
-                        List<MemberFollow> Follows = new List<MemberFollow>();
                         connection.Open();
 
                         command.Parameters.AddWithValue("@MemberID", MemberID);
+                        //command.Parameters.AddWithValue("@DateTime", DateTime);
                         SqlDataReader reader = command.ExecuteReader();
+                        List<Post> PostFollows = new List<Post>();
 
-                        while(reader.Read())
+                        while (reader.Read())
                         {
-                            MemberFollow Follow = new MemberFollow()
+                            Post PostFollow = new Post()
                             {
-                                MemberID = (Guid)reader["MemberID"],
                                 PostID = (Guid)reader["PostID"],
-                                FollowStatus = (bool)reader["FollowStatus"],
-                                ReadedDate = (DateTime)reader["ReadedDate"],
-                                Replied = (bool)reader["Replied"],
+                                MemberID = (Guid)reader["MemberID"],
+                                CboardID = (int)reader["CboardID"],
+                                PointID = reader["PointID"] as Guid?,
+                                PostDate = (DateTime)reader["PostDate"],
+                                PostView = (int)reader["PostView"],
+                                Title = reader["Title"] as string,
+                                PostCotent = (string)reader["PostCotent"],
+                                LastEditTime = reader["LastEditTime"] as DateTime?
                             };
-                            Follows.Add(Follow);
+                            PostFollows.Add(PostFollow);
                         }
-                        return Follows;
-                    }    
+                        return PostFollows;
+                    }
                 }
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Logger.WriteLog("MemberFollowManager.GetMemberFollows", ex);
+                Logger.WriteLog("MemberFollowManager.GetReplied_POSTMemberFollows", ex);
                 throw;
             }
         }
