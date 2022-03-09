@@ -78,6 +78,7 @@
     <Content Include="Register.aspx" />
     <Content Include="SearchEngine.aspx" />
     <Content Include="Web.config" />
+    <Content Include="CbtoPost.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackAdmin\MemberCreate.aspx.cs">
@@ -182,10 +183,25 @@
     <Compile Include="SearchEngine.aspx.designer.cs">
       <DependentUpon>SearchEngine.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Site1.Master.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site1.Master.designer.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="CbtoPost.aspx.cs">
+      <DependentUpon>CbtoPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CbtoPost.aspx.designer.cs">
+      <DependentUpon>CbtoPost.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logs\Log.log" />
     <None Include="packages.config" />
+    <Content Include="Site1.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
