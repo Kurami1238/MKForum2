@@ -16,7 +16,7 @@ namespace MKForum.Models
         public string PostCotent { get; set; }
         public DateTime? LastEditTime { get; set; }
         public string Title { get; set; }
+        public bool Replied { get; set; }
         public int Floor { get; set; }
-
     }
 }
