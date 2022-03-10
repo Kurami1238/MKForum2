@@ -263,11 +263,9 @@ namespace MKForum.Managers
                             };
                             postList.Add(po);
                         }
-
                         return postList;
                     }
                 }
-
             }
             catch (Exception ex)
             {
