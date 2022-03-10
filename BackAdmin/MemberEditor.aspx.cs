@@ -19,7 +19,7 @@ namespace MKForum.BackAdmin
         {
             if (!IsPostBack)
             {
-                Members memberInfo = _mmgr.GetMember(SearchMemberID);
+                Models.Member memberInfo = _mmgr.GetMember(SearchMemberID);
 
                 if (memberInfo == null)
                 {
@@ -81,7 +81,7 @@ namespace MKForum.BackAdmin
 
             if (SaveCheck(SexValue, StatusValue))
             {
-                Members memberSet = new Members()
+                Models.Member memberSet = new Models.Member()
                 {
                     MemberID = Guid.Parse(SearchMemberID.Trim()),
                     NickName = this.txtMember_name.Text.Trim(),
