@@ -127,19 +127,12 @@
     <Compile Include="BackAdmin\MemberFollowEditor.aspx.designer.cs">
       <DependentUpon>MemberFollowEditor.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BackAdmin\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="BackAdmin\test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BackAdmin\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BlackMember.aspx.cs">
-      <DependentUpon>BlackMember.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BlackMember.aspx.designer.cs">
-      <DependentUpon>BlackMember.aspx</DependentUpon>
+    <Compile Include="BackAdmin\test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreatePost.aspx.cs">
       <DependentUpon>CreatePost.aspx</DependentUpon>
