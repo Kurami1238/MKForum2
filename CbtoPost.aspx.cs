@@ -17,12 +17,12 @@ namespace MKForum
         {
             string cboards = this.Request.QueryString["Cboard"];
             int cboard;
-            cboard = 2;
 
             if (int.TryParse(cboards, out cboard))
                 this.lblMsg.Text = "查無此子版";
             else
             {
+                cboard = 2;
                 // 先測試 假設有cboardid
                 this.DisplayPost(cboard);
             }
