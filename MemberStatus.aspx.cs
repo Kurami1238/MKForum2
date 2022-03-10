@@ -15,7 +15,7 @@ namespace MKForum
 
         protected void Page_Load(object sender, EventArgs e)
         {
-             Members memberInfo = MemberManager.GetMember("c8142d85-68c2-4483-ab51-e7d3fc366b89");
+             Member memberInfo = MemberManager.GetMember("c8142d85-68c2-4483-ab51-e7d3fc366b89");
 
             this.imgMember_PicPath.ImageUrl = memberInfo.PicPath;
             this.lblMember_NickName.Text = memberInfo.NickName;

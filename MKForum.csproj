@@ -68,6 +68,8 @@
     <Content Include="BackAdmin\MemberCreate.aspx" />
     <Content Include="BackAdmin\MemberEditor.aspx" />
     <Content Include="BackAdmin\MemberFollowEditor.aspx" />
+    <Content Include="BackAdmin\MemberRegisterList.aspx" />
+    <Content Include="BackAdmin\MemberRegisterPage.aspx" />
     <Content Include="CreatePost.aspx" />
     <Content Include="EditPost.aspx" />
     <Content Include="Global.asax" />
@@ -101,6 +103,27 @@
     <Compile Include="BackAdmin\MemberFollowEditor.aspx.designer.cs">
       <DependentUpon>MemberFollowEditor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BackAdmin\MemberPage.Master.cs">
+      <DependentUpon>MemberPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberPage.Master.designer.cs">
+      <DependentUpon>MemberPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterList.aspx.cs">
+      <DependentUpon>MemberRegisterList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterList.aspx.designer.cs">
+      <DependentUpon>MemberRegisterList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterPage.aspx.cs">
+      <DependentUpon>MemberRegisterPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterPage.aspx.designer.cs">
+      <DependentUpon>MemberRegisterPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CreatePost.aspx.cs">
       <DependentUpon>CreatePost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -120,6 +143,7 @@
     </Compile>
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\CboardManager.cs" />
     <Compile Include="Managers\MemberFollowManager.cs" />
     <Compile Include="Managers\MemberManager.cs" />
@@ -148,7 +172,7 @@
       <DependentUpon>MemberStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Cboard.cs" />
-    <Compile Include="Models\Members.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberBlack.cs" />
     <Compile Include="Models\MemberFollow.cs" />
     <Compile Include="Models\MemberIP.cs" />
@@ -185,7 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logs\Log.log" />
-    <None Include="packages.config" />
+    <Content Include="BackAdmin\MemberPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -221,13 +245,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
