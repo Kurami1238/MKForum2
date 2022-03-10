@@ -175,13 +175,13 @@
                     </form>
                 </div>
 
-                <div class="col-lg-6 col-md-4 col-sm-4 h3 text-center">
+                <div class="col-lg-5 col-md-4 col-sm-4 h3 text-center">
                     <a href="index.html" class="d-block d-sm-none">
                         <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""></a>
                     MKForun
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-4 text-center d-none d-sm-block">使用者狀態區</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 text-center d-none d-sm-block">使用者狀態區</div>
             </div>
 
 
