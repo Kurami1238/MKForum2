@@ -10,7 +10,7 @@ namespace MKForum.Managers
 {
     public class MemberManager
     {
-        public List<Members> GetMembers()
+        public List<Member> GetMembers()
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -26,11 +26,11 @@ namespace MKForum.Managers
                         connection.Open();
                         SqlDataReader reader = command.ExecuteReader();
 
-                        List<Members> Members = new List<Members>();
+                        List<Member> Members = new List<Member>();
 
                         while (reader.Read())
                         {
-                            Members member = new Members()
+                            Member member = new Member()
                             {
                                 MemberID = (Guid)reader["MemberID"],
                                 MemberStatus = (int)reader["MemberStatus"],
@@ -40,6 +40,7 @@ namespace MKForum.Managers
                                 NickName = reader["NickName"] as string,
                                 Birthday = (DateTime)reader["Birthday"],
                                 Sex = (int)reader["Sex"],
+                                PicPath = reader["PicPath"] as string
                             };
                             Members.Add(member);
                         }
@@ -54,7 +55,7 @@ namespace MKForum.Managers
             }
         }
 
-        public Members GetMember(string MemberID)
+        public Member GetMember(string MemberID)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -74,7 +75,7 @@ namespace MKForum.Managers
                         command.Parameters.AddWithValue("@MemberID", MemberID);
                         SqlDataReader reader = command.ExecuteReader();
                         reader.Read();
-                        Members member = new Members()
+                        Member member = new Member()
                         {
                             MemberID = (Guid)reader["MemberID"],
                             MemberStatus = (int)reader["MemberStatus"],
@@ -84,6 +85,7 @@ namespace MKForum.Managers
                             NickName = reader["NickName"] as string,
                             Birthday = (DateTime)reader["Birthday"],
                             Sex = (int)reader["Sex"],
+                            PicPath = reader["PicPath"] as string
                         };
                         return member;
                     }
@@ -97,7 +99,7 @@ namespace MKForum.Managers
         }
 
         //未完成
-        public void CreateMember(Members member)
+        public void CreateMember(Member member)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -130,7 +132,7 @@ namespace MKForum.Managers
             }
         }
 
-        public void UpdateMember(Members member)
+        public void UpdateMember(Member member)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =

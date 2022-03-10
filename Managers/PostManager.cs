@@ -11,14 +11,14 @@ namespace MKForum.Managers
     public class PostManager
     {
         private static List<string> _msgList = new List<string>();
-        public static void CreatePost(Guid member, int cboard, string title, string postcotent)
+        public void CreatePost(Guid member, int cboard, string title, string postcotent)
         {
 
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
                 @"
                     INSERT INTO Posts
-                    (MemberID, CboardID, PostView, Title, PostCotent)
+                    (MemberID, CboardID, Title, PostCotent)
                     VALUES
                     (@memberID, @cboardID, @postView, @title, @postCotent)
                     ";
@@ -31,9 +31,9 @@ namespace MKForum.Managers
                         connection.Open();
                         command.Parameters.AddWithValue(@"memberID", member);
                         command.Parameters.AddWithValue(@"cboardID", cboard);
-                        command.Parameters.AddWithValue(@"postView", 0);
                         command.Parameters.AddWithValue(@"title", title);
                         command.Parameters.AddWithValue(@"postCotent", postcotent);
+                        command.Parameters.AddWithValue(@"postView", 0);
                     }
                 }
             }
@@ -43,16 +43,22 @@ namespace MKForum.Managers
                 throw;
             }
         }
-        public static void CreatePost(Guid member, Guid postid, int cboard, string title, string postcotent)
+        public void CreatePost(Guid member, Guid postid, int cboard, string postcotent)
         {
-
+            Post pointpost = GetPost(postid);   // 取發文的標題
+            List<Post> pointpostlist = this.GetPostpointNowFloor(postid); // 搜那篇回文數有多少
+            int floor;
+            if (pointpostlist.Count > 0)
+                floor = pointpostlist.Count + 1;
+            else
+                floor = 1;
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
                 @"
                     INSERT INTO Posts
-                    (MemberID, PointID, CboardID, PostView, Title, PostCotent)
+                    (MemberID, PointID, CboardID, PostView, Title, PostCotent, Floor)
                     VALUES
-                    (@memberID, @pointID, @cboardID, @postView, @title, @postCotent)
+                    (@memberID, @pointID, @cboardID, @postView, @title, @postCotent, @floor)
                     ";
             try
             {
@@ -65,21 +71,63 @@ namespace MKForum.Managers
                         command.Parameters.AddWithValue(@"pointID", postid);
                         command.Parameters.AddWithValue(@"cboardID", cboard);
                         command.Parameters.AddWithValue(@"postView", 0);
-                        command.Parameters.AddWithValue(@"title", title);
+                        command.Parameters.AddWithValue(@"title", pointpost.Title);
                         command.Parameters.AddWithValue(@"postCotent", postcotent);
+                        command.Parameters.AddWithValue(@"floor", floor);
                     }
                 }
-                CreateInMemberFollows(member, postid);
-                List<MemberFollow> followlist = GetMemberFollowsMemberID(postid);
-                RepliedtoNO(followlist,postid);
+                CreateInMemberFollows(member, postid);  // 增加至會員的追蹤表
+                List<MemberFollow> followlist = GetMemberFollowsMemberID(postid); 
+                RepliedtoNO(followlist,postid); // 讓追蹤原文的會員狀態都改為未讀
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,CreatePost", ex);
+                Logger.WriteLog("PostManager.CreatePost", ex);
                 throw;
             }
         }
-        public static void RepliedtoNO(List<MemberFollow> member, Guid postid)
+        public List<Post> GetPostpointNowFloor(Guid pointid)
+        {
+            string connectionStr = ConfigHelper.GetConnectionString();
+            string commandText =
+                @"
+                    SELECT * FROM Posts
+                    WHERE PointID = @pointID;
+                ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStr))
+                {
+                    using (SqlCommand command = new SqlCommand(commandText, connection))
+                    {
+                        List<Post> pointList = new List<Post>();
+                        connection.Open();
+                        command.Parameters.AddWithValue("@pointID", pointid);
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Post po = new Post()
+                            {
+                                MemberID = (Guid)reader["MemberID"],
+                                PostID = (Guid)reader["PostID"],
+                                PostDate = (DateTime)reader["PostDate"],
+                            };
+                            pointList.Add(po);
+                        }
+
+                        return pointList;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("PostManager.GetPostNowFloor", ex);
+                throw;
+            }
+        }
+        public void RepliedtoNO(List<MemberFollow> member, Guid postid)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -106,11 +154,11 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,RepliedtoNO", ex);
+                Logger.WriteLog("PostManager.RepliedtoNO", ex);
                 throw;
             }
         }
-        public static void CreateInMemberFollows(Guid member, Guid postid)
+        public void CreateInMemberFollows(Guid member, Guid postid)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -135,11 +183,11 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,CreateInMemberFollows", ex);
+                Logger.WriteLog("PostManager.CreateInMemberFollows", ex);
                 throw;
             }
         }
-        public static List<MemberFollow> GetMemberFollowsMemberID(Guid postid)
+        public List<MemberFollow> GetMemberFollowsMemberID(Guid postid)
         {
             string connectionStr = ConfigHelper.GetConnectionString();
             string commandText =
@@ -178,11 +226,54 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("MemberFollowManager.GetMemberFollows", ex);
+                Logger.WriteLog("PostManager.GetMemberFollowsMemberID", ex);
                 throw;
             }
         }
-        public static Post GetPost(Guid postid)
+        public List<Post> GetPostList(int cboardid)
+        {
+            string connectionStr = ConfigHelper.GetConnectionString();
+            string commandText =
+                @"
+                    SELECT * FROM Posts
+                    WHERE CboarddID = @cboardID AND PointID IS NULL;
+                ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStr))
+                {
+                    using (SqlCommand command = new SqlCommand(commandText, connection))
+                    {
+                        List<Post> postList = new List<Post>();
+                        connection.Open();
+                        command.Parameters.AddWithValue("@cboardID", cboardid);
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Post po = new Post()
+                            {
+                                PostID = (Guid)reader["PostID"],
+                                MemberID = (Guid)reader["MemberID"],
+                                PostDate = (DateTime)reader["PostDate"],
+                                PostView = (int)reader["PostView"],
+                                PostCotent = (string)reader["PostCotent"],
+                                LastEditTime = reader["LastEditTime"] as DateTime?,
+                                Title = (string)reader["Title"]
+                            };
+                            postList.Add(po);
+                        }
+                        return postList;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("PostManager.GetPostList", ex);
+                throw;
+            }
+        }
+        public Post GetPost(Guid postid)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -193,7 +284,7 @@ namespace MKForum.Managers
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand command = new SqlCommand(commandText))
+                    using (SqlCommand command = new SqlCommand(commandText,conn))
                     {
                         command.Parameters.AddWithValue("@postID", postid);
                         conn.Open();
@@ -224,7 +315,7 @@ namespace MKForum.Managers
                 throw;
             }
         }
-        public static void UpdatePost(Guid postid, string title, string postcotent)
+        public void UpdatePost(Guid postid, string title, string postcotent)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -252,11 +343,11 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,UpdatePost", ex);
+                Logger.WriteLog("PostManager.UpdatePost", ex);
                 throw;
             }
         }
-        public static void DeletePost(Guid postid)
+        public void DeletePost(Guid postid)
         {
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
@@ -277,11 +368,11 @@ namespace MKForum.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,DeletePost", ex);
+                Logger.WriteLog("PostManager.DeletePost", ex);
                 throw;
             }
         }
-        public static bool CheckInput(string titletext, string postcotenttext)
+        public bool CheckInput(string titletext, string postcotenttext)
         {
             _msgList = new List<string>();
             List<string> msgList = new List<string>();
@@ -301,13 +392,13 @@ namespace MKForum.Managers
             }
             return true;
         }
-        public static List<string> GetmsgList()
+        public List<string> GetmsgList()
         {
             return _msgList;
         }
-        public static string GetmsgText()
+        public string GetmsgText()
         {
-            List<string> errlist = PostManager.GetmsgList();
+            List<string> errlist = this.GetmsgList();
             string allError = string.Join("<br/>", errlist);
             return allError;
         }
