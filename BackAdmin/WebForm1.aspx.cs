@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace MKForum.BackAdmin
 {
-    public partial class common_area : System.Web.UI.MasterPage
+    public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

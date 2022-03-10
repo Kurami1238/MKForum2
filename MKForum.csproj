@@ -65,13 +65,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BackAdmin\MemberCreate.aspx" />
     <Content Include="BackAdmin\MemberEditor.aspx" />
     <Content Include="BackAdmin\MemberFollowEditor.aspx" />
+    <Content Include="BackAdmin\WebForm1.aspx" />
     <Content Include="BlackMember.aspx" />
     <Content Include="CreatePost.aspx" />
     <Content Include="EditPost.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="HomePage.aspx" />
     <Content Include="MemberFollowList.aspx" />
     <Content Include="MemberList.aspx" />
     <Content Include="MemberStatus.aspx" />
@@ -82,20 +83,6 @@
     <Content Include="CbtoPost.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackAdmin\common area.Master.cs">
-      <DependentUpon>common area.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BackAdmin\common area.Master.designer.cs">
-      <DependentUpon>common area.Master</DependentUpon>
-    </Compile>
-    <Compile Include="BackAdmin\MemberCreate.aspx.cs">
-      <DependentUpon>MemberCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BackAdmin\MemberCreate.aspx.designer.cs">
-      <DependentUpon>MemberCreate.aspx</DependentUpon>
-    </Compile>
     <Compile Include="BackAdmin\MemberEditor.aspx.cs">
       <DependentUpon>MemberEditor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -109,6 +96,13 @@
     </Compile>
     <Compile Include="BackAdmin\MemberFollowEditor.aspx.designer.cs">
       <DependentUpon>MemberFollowEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="BlackMember.aspx.cs">
       <DependentUpon>BlackMember.aspx</DependentUpon>
@@ -136,6 +130,20 @@
     </Compile>
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="HomePage.aspx.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HomePage.aspx.designer.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
     <Compile Include="Managers\BlackManager.cs" />
     <Compile Include="Managers\CboardManager.cs" />
     <Compile Include="Managers\MemberFollowManager.cs" />
@@ -200,13 +208,6 @@
     <Compile Include="SearchEngine.aspx.designer.cs">
       <DependentUpon>SearchEngine.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Site1.Master.cs">
-      <DependentUpon>Site1.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Site1.Master.designer.cs">
-      <DependentUpon>Site1.Master</DependentUpon>
-    </Compile>
     <Compile Include="CbtoPost.aspx.cs">
       <DependentUpon>CbtoPost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -217,9 +218,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logs\Log.log" />
-    <Content Include="BackAdmin\common area.Master" />
+    <Content Include="Main.Master" />
     <None Include="packages.config" />
-    <Content Include="Site1.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
