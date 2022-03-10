@@ -4,14 +4,14 @@
 
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link rel="stylesheet" href="css/bootstrap.css" />
     <script src="js/bootstrap.js"></script>
     <style>
-        div {
+                div {
             border: 1px solid #000;
         }
 
@@ -22,58 +22,59 @@
     </style>
 </head>
 <body>
-    <%--<div class="container-fluid">--%>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-3">
-                <a href="index.html"><img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+                <a href="index.html">
+                    <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""></a>
                 <form action="這邊輸入搜尋結果的.aspx" class="d-flex">
                     <input type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
-            <div class="col-lg-6 col-md-3 h3"  >
+            <div class="col-lg-6 col-md-3 h3">
                 MKForun
-              </div>
+            </div>
             <div class="col-lg-3 col-md-6">使用者狀態區</div>
         </div>
     </div>
 
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 col-md-12">
-            <ul>
-                <li>音樂討論區</li>
-                <li>動畫討論區</li>
-                <li>漫畫討論區</li>
-                <li>遊戲討論區</li>
-            </ul>
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <ul>
+                    <li>音樂討論區</li>
+                    <li>動畫討論區</li>
+                    <li>漫畫討論區</li>
+                    <li>遊戲討論區</li>
+                </ul>
+            </div>
 
-        <div class="col-lg-6 col-md-12">
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <div class="col-lg-3 col-md-12">
-            <ul>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-                <li>空白區</li>
-            </ul>
+            <div class="col-lg-6 col-md-12">
+                <div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <ul>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                    <li>空白區</li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-
 
 </body>
 </html>
