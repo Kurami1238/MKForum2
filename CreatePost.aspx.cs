@@ -32,14 +32,14 @@ namespace MKForum
 
             // 檢查必填欄位及關鍵字
 
-            if (PostManager.CheckInput(TitleText, PostCotentText) == false)
-            {
-                ltlmsg.Text = PostManager.GetmsgText();
-                return;
-            }
-             // 新建一筆Post
+            //if (PostManager.CheckInput(TitleText, PostCotentText) == false)
+            //{
+            //    ltlmsg.Text = PostManager.GetmsgText();
+            //    return;
+            //}
+            // // 新建一筆Post
 
-            PostManager.CreatePost(memberid.MemberID, cboardid.CboardID, TitleText, PostCotentText);
+            //PostManager.CreatePost(memberid.MemberID, cboardid.CboardID, TitleText, PostCotentText);
 
             // 提示使用者成功
 
