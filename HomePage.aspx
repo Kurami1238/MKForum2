@@ -5,10 +5,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-            <div class="col-lg-6 col-md-12">
-            <div class="hot-cboards">
 
-            </div>
 
             <div class="hot-posts">
                 <div class="title">
@@ -17,5 +14,4 @@
                 </div>
 
             </div>
-        </div>
 </asp:Content>
