@@ -15,13 +15,23 @@ namespace MKForum.Managers
             string connectionStr = ConfigHelper.GetConnectionString();
             string commandText =
                 @"
-                    SELECT * FROM Posts
-                    WHERE PostID = 
+                    SELECT  DISTINCT --
+                            Posts.PostID, Posts.MemberID, CboardID, PointID,
+		                    PostDate, PostView, Title, Floor,
+		                    PostCotent, LastEditTime, MemberFollows.Replied
+                     FROM Posts
+
+                     JOIN MemberFollows
+	                    ON MemberFollows.PostID = Posts.PostID
+
+                    WHERE MemberFollows.PostID in 
                     (
 	                    SELECT PostID FROM MemberFollows
-	                    WHERE MemberID = @MemberID
+	                    WHERE MemberID = 'c8142d85-68c2-4483-ab51-e7d3fc366b89'
 	                    AND Replied = 0
                     )
+
+                    ORDER BY Replied ASC, LastEditTime DESC, PostDate DESC
                 ";
             try
             {
@@ -48,7 +58,9 @@ namespace MKForum.Managers
                                 PostView = (int)reader["PostView"],
                                 Title = reader["Title"] as string,
                                 PostCotent = (string)reader["PostCotent"],
-                                LastEditTime = reader["LastEditTime"] as DateTime?
+                                LastEditTime = reader["LastEditTime"] as DateTime?,
+                                Replied = (bool)reader["Replied"],
+                                Floor = (int)reader["Floor"]
                             };
                             PostFollows.Add(PostFollow);
                         }

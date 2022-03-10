@@ -11,6 +11,7 @@ namespace MKForum
 {
     public partial class EditPost : System.Web.UI.Page
     {
+        private PostManager _pmgr = new PostManager();
         protected void Page_Init(object sender, EventArgs e)
         {
             // 從Session取得當前文章ID
@@ -18,7 +19,7 @@ namespace MKForum
             //int cboardid = this.Session["PostID"] as Guid;
 
             // 顯示文章
-            Post Displaypost = PostManager.GetPost(postid.PostID);
+            Post Displaypost = this._pmgr.GetPost(postid.PostID);
 
             Title.Text = Displaypost.Title;
             PostCotent.InnerText = Displaypost.PostCotent;
@@ -36,9 +37,9 @@ namespace MKForum
 
             // 檢查必填欄位及關鍵字
 
-            if (PostManager.CheckInput(TitleText, PostCotentText) == false)
+            if (this._pmgr.CheckInput(TitleText, PostCotentText) == false)
             {
-                ltlmsg.Text = PostManager.GetmsgText();
+                ltlmsg.Text = this._pmgr.GetmsgText();
                 return;
             }
             // 更新Post
@@ -46,7 +47,7 @@ namespace MKForum
             // 從Session取得當前文章ID
             Post postid = new Post();
             //int cboardid = this.Session["PostID"] as Guid;
-            PostManager.UpdatePost(postid.PostID,TitleText,PostCotentText);
+            this._pmgr.UpdatePost(postid.PostID,TitleText,PostCotentText);
 
             // 提示使用者成功
 
