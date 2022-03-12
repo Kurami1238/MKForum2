@@ -65,8 +65,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="BackAdmin\MemberCreate.aspx" />
     <Content Include="BackAdmin\MemberEditor.aspx" />
     <Content Include="BackAdmin\MemberFollowEditor.aspx" />
+    <Content Include="BackAdmin\MemberRegisterList.aspx" />
+    <Content Include="BackAdmin\MemberRegisterPage.aspx" />
     <Content Include="BackAdmin\WebForm1.aspx" />
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
@@ -93,26 +97,39 @@
     <Content Include="bin\roslyn\vbc.exe" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
     <Content Include="BlackMember.aspx" />
-    <Content Include="CreatePostv2.aspx" />
+    <Content Include="CreatePost.aspx" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="EditPost.aspx" />
+    <Content Include="FrontEnd\index.html" />
     <Content Include="Global.asax" />
     <Content Include="HomePage.aspx" />
     <Content Include="images\logo.png" />
     <Content Include="images\MENU.png" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\jquery.min.js" />
     <Content Include="MemberFollowList.aspx" />
     <Content Include="MemberList.aspx" />
     <Content Include="MemberStatus.aspx" />
+    <Content Include="PicPath\線條人.png" />
     <Content Include="Ranking.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="SearchEngine.aspx" />
+    <Content Include="ucLogin.ascx" />
+    <Content Include="ucRegister.ascx" />
     <Content Include="Web.config" />
     <Content Include="CbtoPost.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackAdmin\MemberCreate.aspx.cs">
+      <DependentUpon>MemberCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberCreate.aspx.designer.cs">
+      <DependentUpon>MemberCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BackAdmin\MemberEditor.aspx.cs">
       <DependentUpon>MemberEditor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -127,6 +144,27 @@
     <Compile Include="BackAdmin\MemberFollowEditor.aspx.designer.cs">
       <DependentUpon>MemberFollowEditor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BackAdmin\MemberPage.Master.cs">
+      <DependentUpon>MemberPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberPage.Master.designer.cs">
+      <DependentUpon>MemberPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterList.aspx.cs">
+      <DependentUpon>MemberRegisterList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterList.aspx.designer.cs">
+      <DependentUpon>MemberRegisterList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterPage.aspx.cs">
+      <DependentUpon>MemberRegisterPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\MemberRegisterPage.aspx.designer.cs">
+      <DependentUpon>MemberRegisterPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BackAdmin\test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -134,12 +172,12 @@
     <Compile Include="BackAdmin\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CreatePostv2.aspx.cs">
-      <DependentUpon>CreatePostv2.aspx</DependentUpon>
+    <Compile Include="CreatePost.aspx.cs">
+      <DependentUpon>CreatePost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CreatePostv2.aspx.designer.cs">
-      <DependentUpon>CreatePostv2.aspx</DependentUpon>
+    <Compile Include="CreatePost.aspx.designer.cs">
+      <DependentUpon>CreatePost.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditPost.aspx.cs">
       <DependentUpon>EditPost.aspx</DependentUpon>
@@ -152,7 +190,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ConfigHelper.cs" />
-    <Compile Include="Helpers\FindQueryStringHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -168,6 +205,7 @@
     <Compile Include="Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
+    <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\BlackManager.cs" />
     <Compile Include="Managers\CboardManager.cs" />
     <Compile Include="Managers\MemberFollowManager.cs" />
@@ -197,6 +235,9 @@
     <Compile Include="MemberStatus.aspx.designer.cs">
       <DependentUpon>MemberStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CaptHandler.ashx.cs">
+      <DependentUpon>CaptHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cboard.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberBlack.cs" />
@@ -208,9 +249,9 @@
     <Compile Include="Models\MemberScan.cs" />
     <Compile Include="Models\Pboard.cs" />
     <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\PostImgList.cs" />
     <Compile Include="Models\PostStamp.cs" />
     <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ranking.aspx.cs">
       <DependentUpon>Ranking.aspx</DependentUpon>
@@ -240,6 +281,20 @@
     <Compile Include="CbtoPost.aspx.designer.cs">
       <DependentUpon>CbtoPost.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ucLogin.ascx.cs">
+      <DependentUpon>ucLogin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucLogin.ascx.designer.cs">
+      <DependentUpon>ucLogin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucRegister.ascx.cs">
+      <DependentUpon>ucRegister.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucRegister.ascx.designer.cs">
+      <DependentUpon>ucRegister.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logs\Log.log" />
@@ -255,6 +310,10 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\MKForum.csproj.AssemblyReference.cache" />
+    <Content Include="BackAdmin\MemberPage.Master" />
+    <Content Include="Models\CaptHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -265,7 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="FileDownload\PostCotent\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
