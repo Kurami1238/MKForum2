@@ -39,17 +39,17 @@
 
          function openDialog() {
              document.getElementById('reg').style.display = 'block';
-             document.getElementById('fade').style.display = 'block';
+             document.getElementById('fade').style.display = 'block'
          }
          function closeDialog() {
              document.getElementById('reg').style.display = 'none';
-             document.getElementById('fade').style.display = 'none';
+             document.getElementById('fade').style.display = 'none'
          }
 
  </script>
 
 
-<a href = "javascript:void(0)" onclick = "openDialog()">註冊</a> 
+<a href = "javascript:void(0)" onclick = "document.getElementById('reg').style.display='block';document.getElementById('fade').style.display='block'">註冊</a> 
 
 
         <div id="reg" class="white_content">
