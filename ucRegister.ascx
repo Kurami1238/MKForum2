@@ -34,13 +34,22 @@
      window.onload = function () {
          var validateCode = document.getElementById("validateCode");
          validateCode.onclick = function () {
-             document.getElementById("imgCode").src = "Models/CAPTCHAHandler1.ashx?id=" + new Date().getMilliseconds();
+             document.getElementById("imgCode").src = "Models/CaptHandler1.ashx?id=" + new Date().getMilliseconds();
+         }
+
+         function openDialog() {
+             document.getElementById('reg').style.display = 'block';
+             document.getElementById('fade').style.display = 'block';
+         }
+         function closeDialog() {
+             document.getElementById('reg').style.display = 'none';
+             document.getElementById('fade').style.display = 'none';
          }
 
  </script>
 
 
-<a href = "javascript:void(0)" onclick = "document.getElementById('reg').style.display='block';document.getElementById('fade').style.display='block'">註冊</a> 
+<a href = "javascript:void(0)" onclick = "openDialog()">註冊</a> 
 
 
         <div id="reg" class="white_content">
@@ -77,7 +86,8 @@
 
         </div>
 
-<a href = "javascript:void(0)" onclick = "document.getElementById('reg').style.display='none';document.getElementById('fade').style.display='none'">點這裡關閉本視窗</a>
+<a href = "javascript:void(0)" onclick = "document.getElementById('reg').style.display='none';
+    document.getElementById('fade').style.display='none'">點這裡關閉本視窗</a>
 
            
 
@@ -85,8 +95,8 @@
         </div> 
         <div id="fade" class="black_overlay">
 
-                  
-
-
 
         </div> 
+
+
+              

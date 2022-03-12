@@ -484,11 +484,10 @@ namespace MKForum.Managers
             //帳密正確，把值寫入Session
             if (result)
             {
-                HttpContext.Current.Session["Member"] = new Member()
-                {
-                    Account = account,
-                    Password = password
-                };
+                memberAcc.Password = null;
+                HttpContext.Current.Session["Member"] = memberAcc;
+
+
             }
 
 

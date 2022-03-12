@@ -80,18 +80,23 @@ namespace MKForum
 
         public bool CheckInput()
         {
+            string account = this.txtAcc.Text.Trim();
+            string pwd=this.txtPwd.Text.Trim();
+            string mail=this.txtMail.Text.Trim();
+
+
             Regex regex = new Regex(@"(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,12}");
             List<string> msgList = new List<string>();
-            if (string.IsNullOrWhiteSpace(this.txtAcc.Text))
+            if (string.IsNullOrWhiteSpace(account))
             {
                 msgList.Add("帳號為必填，至少有數字、小寫字母 3-8位數");
             }
 
-            else if (this.CheckAccount(this.txtAcc.Text))
+            else if (this.CheckAccount(account))
             {
                 //密碼強度-使用regex进行格式设置 至少有数字、小写字母，最少3个字符、最长8个字符
                 Regex regex2 = new Regex(@"(?=.*[0-9])(?=.*[a-z]).{3,8}");
-                if (regex2.IsMatch(this.txtAcc.Text))
+                if (regex2.IsMatch(account))
                 {
                     this.ltlAcc.Text = "帳號不重複，通過";
                 }
@@ -102,28 +107,28 @@ namespace MKForum
 
             }
 
-
-            if (string.IsNullOrWhiteSpace(this.txtPwd.Text))
+            if (string.IsNullOrWhiteSpace(pwd))
             {
                 msgList.Add("密碼為必填，至少有數字、大小寫字母，最少8個字符、最長12個字符");
             }
-            if (regex.IsMatch(this.txtPwd.Text))
+            if (regex.IsMatch(pwd))
             {
 
             }
-            else if (!regex.IsMatch(this.txtPwd.Text))
+            else if (!regex.IsMatch(pwd))
             {
                 msgList.Add("密碼不符合，至少有數字、大小寫字母，最少3個字符、最長8個字符");
             }
-            if (string.IsNullOrWhiteSpace(this.txtMail.Text))
+            
+            if (string.IsNullOrWhiteSpace(mail))
             {
                 msgList.Add("Email為必填，要符合Email格式.");
             }
-            if (new EmailAddressAttribute().IsValid(this.txtMail.Text))
+            else if (new EmailAddressAttribute().IsValid(mail))
             {
 
             }
-            else if (!new EmailAddressAttribute().IsValid(this.txtMail.Text))
+            else if (!new EmailAddressAttribute().IsValid(mail))
             {
 
                 msgList.Add("不符合Email格式.");
@@ -177,8 +182,11 @@ namespace MKForum
             if (this._mga.TryRegister(account, password, mail, cap))
             {
                 _mga.CreateRegister(member, memberRegister);
-              
-                this.ltlReg.Text += "成功<br/>";
+                this.plcInfo.Visible = true;
+                this.plcReg.Visible = false;
+               
+                this.ltlAccount.Text = account + "成功註冊";
+
             }
             if (!this._mga.TryRegister(account, password, mail, cap))
             {

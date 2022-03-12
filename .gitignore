@@ -2,7 +2,7 @@
 # 這個 .gitignore 檔案由 Microsoft(R) Visual Studio 自動建立。
 ################################################################################
 
-/.vs/MKForum
+/.vs
 
 /obj
 
@@ -10,8 +10,12 @@
 
 /Logs
 
+/bin
+
 *.dll
 
 *.csproj
 
 *.pdb
+
+*.suo
