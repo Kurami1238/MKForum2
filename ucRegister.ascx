@@ -37,6 +37,7 @@
              document.getElementById("imgCode").src = "Models/CaptHandler1.ashx?id=" + new Date().getMilliseconds();
          }
 
+
          function openDialog() {
              document.getElementById('reg').style.display = 'block';
              document.getElementById('fade').style.display = 'block'
