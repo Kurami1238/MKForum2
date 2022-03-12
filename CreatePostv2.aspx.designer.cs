@@ -11,35 +11,62 @@ namespace MKForum
 {
 
 
-    public partial class CreatePost
+    public partial class CreatePostv2
     {
 
         /// <summary>
-        /// form1 控制項。
+        /// txtTitle 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox txtTitle;
 
         /// <summary>
-        /// Title 控制項。
+        /// lsbPostStamp 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Title;
+        protected global::System.Web.UI.WebControls.ListBox lsbPostStamp;
 
         /// <summary>
-        /// PostCotent 控制項。
+        /// fuPostImage 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea PostCotent;
+        protected global::System.Web.UI.WebControls.FileUpload fuPostImage;
+
+        /// <summary>
+        /// imgPostImage 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPostImage;
+
+        /// <summary>
+        /// txtPostCotent 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPostCotent;
+
+        /// <summary>
+        /// lblMsg 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
         /// btnSend 控制項。
@@ -49,14 +76,5 @@ namespace MKForum
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSend;
-
-        /// <summary>
-        /// ltlmsg 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlmsg;
     }
 }

@@ -93,7 +93,7 @@
     <Content Include="bin\roslyn\vbc.exe" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
     <Content Include="BlackMember.aspx" />
-    <Content Include="CreatePost.aspx" />
+    <Content Include="CreatePostv2.aspx" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="EditPost.aspx" />
@@ -134,12 +134,12 @@
     <Compile Include="BackAdmin\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CreatePost.aspx.cs">
-      <DependentUpon>CreatePost.aspx</DependentUpon>
+    <Compile Include="CreatePostv2.aspx.cs">
+      <DependentUpon>CreatePostv2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CreatePost.aspx.designer.cs">
-      <DependentUpon>CreatePost.aspx</DependentUpon>
+    <Compile Include="CreatePostv2.aspx.designer.cs">
+      <DependentUpon>CreatePostv2.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditPost.aspx.cs">
       <DependentUpon>EditPost.aspx</DependentUpon>
@@ -152,6 +152,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ConfigHelper.cs" />
+    <Compile Include="Helpers\FindQueryStringHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -207,6 +208,7 @@
     <Compile Include="Models\MemberScan.cs" />
     <Compile Include="Models\Pboard.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostImgList.cs" />
     <Compile Include="Models\PostStamp.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FileDownload\PostCotent\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

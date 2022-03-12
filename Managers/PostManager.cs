@@ -11,16 +11,16 @@ namespace MKForum.Managers
     public class PostManager
     {
         private static List<string> _msgList = new List<string>();
-        public void CreatePost(Guid member, int cboard, string title, string postcotent)
+        public void CreatePost(Guid member, int cboard, Post post,out Guid postid)
         {
 
             string connectionString = ConfigHelper.GetConnectionString();
             string commandText =
                 @"
                     INSERT INTO Posts
-                    (MemberID, CboardID, Title, PostCotent)
+                    (PostID, MemberID, CboardID, Title, PostCotent)
                     VALUES
-                    (@memberID, @cboardID, @postView, @title, @postCotent)
+                    (@postID, @memberID, @cboardID, @postView, @title, @postCotent)
                     ";
             try
             {
@@ -28,25 +28,29 @@ namespace MKForum.Managers
                 {
                     using (SqlCommand command = new SqlCommand(commandText, connection))
                     {
+                        post.PostID = Guid.NewGuid();
                         connection.Open();
+                        command.Parameters.AddWithValue(@"postID", post.PostID);
                         command.Parameters.AddWithValue(@"memberID", member);
                         command.Parameters.AddWithValue(@"cboardID", cboard);
-                        command.Parameters.AddWithValue(@"title", title);
-                        command.Parameters.AddWithValue(@"postCotent", postcotent);
+                        command.Parameters.AddWithValue(@"title", post.Title);
+                        command.Parameters.AddWithValue(@"postCotent", post.PostCotent);
                         command.Parameters.AddWithValue(@"postView", 0);
+                        command.ExecuteNonQuery();
+                        postid = post.PostID;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager,CreatePost", ex);
+                Logger.WriteLog("PostManager.CreatePost", ex);
                 throw;
             }
         }
-        public void CreatePost(Guid member, Guid postid, int cboard, string postcotent)
+        public void CreatePost(Guid member, Guid pointtid, Post post, out Guid postid)
         {
-            Post pointpost = GetPost(postid);   // 取發文的標題
-            List<Post> pointpostlist = this.GetPostpointNowFloor(postid); // 搜那篇回文數有多少
+            Post pointpost = GetPost(pointtid);   // 取發文的標題
+            List<Post> pointpostlist = this.GetPostpointNowFloor(pointtid); // 搜那篇回文數有多少
             int floor;
             if (pointpostlist.Count > 0)
                 floor = pointpostlist.Count + 1;
@@ -56,9 +60,50 @@ namespace MKForum.Managers
             string commandText =
                 @"
                     INSERT INTO Posts
-                    (MemberID, PointID, CboardID, PostView, Title, PostCotent, Floor)
+                    (PostID, MemberID, PointID, CboardID, PostView, Title, PostCotent, Floor)
                     VALUES
-                    (@memberID, @pointID, @cboardID, @postView, @title, @postCotent, @floor)
+                    (@postID, @memberID, @pointID, @cboardID, @postView, @title, @postCotent, @floor)
+                    ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(commandText, connection))
+                    {
+                        post.PostID = Guid.NewGuid();
+                        connection.Open();
+                        command.Parameters.AddWithValue(@"postID", post.PostID);
+                        command.Parameters.AddWithValue(@"memberID", member);
+                        command.Parameters.AddWithValue(@"pointID", pointtid);
+                        command.Parameters.AddWithValue(@"cboardID", post.CboardID);
+                        command.Parameters.AddWithValue(@"postView", 0);
+                        command.Parameters.AddWithValue(@"title", pointpost.Title);
+                        command.Parameters.AddWithValue(@"postCotent", post.PostCotent);
+                        command.Parameters.AddWithValue(@"floor", floor);
+                        command.ExecuteNonQuery();
+                        postid = post.PostID;
+                    }
+                }
+                CreateInMemberFollows(member, pointtid);  // 增加至會員的追蹤表
+                List<MemberFollow> followlist = GetMemberFollowsMemberID(pointtid); 
+                RepliedtoNO(followlist,pointtid); // 讓追蹤原文的會員狀態都改為未讀
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("PostManager.CreatePost", ex);
+                throw;
+            }
+        }
+        public void CreatePostImageList(Guid postid, string imagepath)
+        {
+
+            string connectionString = ConfigHelper.GetConnectionString();
+            string commandText =
+                @"
+                    INSERT INTO PostImageLists
+                    (PostID, ImagePath)
+                    VALUES
+                    (@postID, @imagepath)
                     ";
             try
             {
@@ -67,22 +112,14 @@ namespace MKForum.Managers
                     using (SqlCommand command = new SqlCommand(commandText, connection))
                     {
                         connection.Open();
-                        command.Parameters.AddWithValue(@"memberID", member);
-                        command.Parameters.AddWithValue(@"pointID", postid);
-                        command.Parameters.AddWithValue(@"cboardID", cboard);
-                        command.Parameters.AddWithValue(@"postView", 0);
-                        command.Parameters.AddWithValue(@"title", pointpost.Title);
-                        command.Parameters.AddWithValue(@"postCotent", postcotent);
-                        command.Parameters.AddWithValue(@"floor", floor);
+                        command.Parameters.AddWithValue(@"postID", postid);
+                        command.Parameters.AddWithValue(@"imagepath", imagepath);
                     }
                 }
-                CreateInMemberFollows(member, postid);  // 增加至會員的追蹤表
-                List<MemberFollow> followlist = GetMemberFollowsMemberID(postid); 
-                RepliedtoNO(followlist,postid); // 讓追蹤原文的會員狀態都改為未讀
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("PostManager.CreatePost", ex);
+                Logger.WriteLog("PostManager.CreatePostImageList", ex);
                 throw;
             }
         }
@@ -236,7 +273,7 @@ namespace MKForum.Managers
             string commandText =
                 @"
                     SELECT * FROM Posts
-                    WHERE CboarddID = @cboardID AND PointID IS NULL;
+                    WHERE CboardID = @cboardID AND PointID IS NULL;
                 ";
             try
             {
